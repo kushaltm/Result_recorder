@@ -1,0 +1,83 @@
+.set-btn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 20px 20px;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+  position:relative;
+  width: 20%;
+}
+.btn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 20px 30px;
+  margin: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+  position: relative;
+  width: 30%;
+}
+.btn:disabled{
+  display: inline-block;
+  background: rgb(221, 47, 47);
+  color: #fff;
+  border: none;
+  padding: 20px 30px;
+  margin: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+  position: relative;
+  width: 30%;
+}
+.form-control-input {
+  width: 50%;
+  height: 40px;
+  margin: 5px;
+  padding: 3px 7px;
+  font-size: 17px;
+  
+}
+.label{
+  font-size: 25px;
+  font-family: inherit;
+  padding: 30px 30px;
+  width: 30%;
+}
+.header{
+  font-style: inherit;
+  background-color: bisque;
+  align-content: center;
+  text-align: center;
+  width: 50%;
+  margin: auto;
+  
+}
+.reset-btn{
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 20px 30px;
+  margin: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+  position: relative;
+  width: 30%;
+}
