@@ -1,14 +1,12 @@
 
-import { useState ,useRef } from "react";
+import { useState ,useEffect } from "react";
 
 import Header from "./Components/Header"
 
 
 function App() {
   const [player1,setP1] =useState(0)
-  //localStorage.setItem("Pl1",0)
   const [player2,setP2] = useState(0)
-  //localStorage.setItem("Pl2",0)
   const [winPoint,setW] = useState(0)
   const [player1Disable,setP1Dis] = useState(true)
   const [player2Disable,setP2Dis] = useState(true)
@@ -16,82 +14,127 @@ function App() {
   const [winInputPoint,setI] = useState()
   const [set,setDisable] = useState(false)
 
-  var data;
-  const addDataIntoCode =(cacheName,url,response)=>{
-    data = new Response(JSON.stringify(response));
-    if('caches in window'){
-      caches.open(cacheName).then((cache)=>{
-        cache.put(url,data);
-      });
+  useEffect(()=>{
+    const getData = async() =>{
+      const dataFromServer = await fetchData()
+      console.log(dataFromServer['Player1'])
+      setP1(dataFromServer['Player1'])
+      setP2(dataFromServer['Player2'])
+      setW(dataFromServer['WinInputPoint'])
+      setP1Dis(dataFromServer['Player1Disable'])
+      setP2Dis(dataFromServer['Player2Disable'])
+      setInDis(dataFromServer['InputDisable'])
+      setI(dataFromServer['WinInputPoint'])
+      setDisable(dataFromServer['SetDisable'])
     }
-  }
-  const getCache=async(cacheName,url)=>{
-     const cacheStorage = await caches.open(cacheName);
-     const cacheResponse = await cacheStorage.match(url);
-     var data = cacheResponse
+    getData()
+  },[])
 
-    
-      
-        console.log(data["player1"])
-        setP1(data.player1)
-        setP2(data.player2)
-        setP1Dis(data.player1Disable)
-        setP2Dis(data.player1Disable)
-        setI(data.winInputPoint)
-        setInDis(data.inputDisable)
-        setW(data.winPoint)
-      
-    }
+  const fetchData = async()=>{
+    const res = await fetch('http://localhost:5000/data')
+    const data = await res.json()
+    return data
+  }
+
+ 
   
   const handleChange=(e)=>{
       setI(e.target.value)
-      //console.log(winInputPoint)
+     
     
   }
-  const onPlayer1=()=>{
-    localStorage.setItem("Pl1",player1+1)
-    console.log(localStorage.getItem("Pl1"))
+  const onPlayer1= async()=>{
+    const dataToUpdate = await fetchData()
     setP1(player1+1)
+    dataToUpdate['Player1']++
      if(player1 == winPoint-1){
-      alert("Player1 wins")
-      setP1Dis(true)
-      setP2Dis(true)
-    }
+       alert("Player1 wins")
+       dataToUpdate['Player1Disable'] = true
+       dataToUpdate['Player2Disable'] = true
+       setP1Dis(true)
+       setP2Dis(true)
+     
+     }
+     const updatedData = dataToUpdate
+     const res = await fetch(`http://localhost:5000/data/`,{
+       method : 'PUT',
+       headers:{
+         'Content-type':'application/json'
+       },
+       body :JSON.stringify(updatedData)
+     })
+     const d = await res.json()
     
   }
-  const onPlayer2=()=>{
-    localStorage.setItem('Pl2',player2+1)
-    setP2(parseInt(localStorage.getItem('Pl2'))) 
-    
+  const onPlayer2=async()=>{
+    const dataToUpdate = await fetchData()
+   setP2(player2+1)
+   dataToUpdate['Player2']++
     if(player2 == winPoint-1){
       alert("Player2 wins")
+      dataToUpdate['Player1Disable'] = true
+      dataToUpdate['Player2Disable'] = true
       setP1Dis(true)
       setP2Dis(true)
     
     }
+    const updatedData = dataToUpdate
+    const res = await fetch(`http://localhost:5000/data/`,{
+      method : 'PUT',
+      headers:{
+        'Content-type':'application/json'
+      },
+      body :JSON.stringify(updatedData)
+    })
+    const d = await res.json()
     
   }
-  const onReset=()=>{
-    setP1(0)
-    setP2(0)
+  const onReset=async()=>{
+    const dataToUpdate = await fetchData()
+   dataToUpdate['Player1']=0
+   dataToUpdate['Player2']=0
+   dataToUpdate['SetDisable'] = false
+   dataToUpdate['Player1Disable'] = true
+   dataToUpdate['Player2Disable'] = true
+   dataToUpdate['WinInputPoint'] =0
+   dataToUpdate['InputDisable'] = false
+   const updatedData = dataToUpdate
+    const res = await fetch(`http://localhost:5000/data/`,{
+      method : 'PUT',
+      headers:{
+        'Content-type':'application/json'
+      },
+      body :JSON.stringify(updatedData)
+    })
+    const d = await res.json()
+    setP1(d["Player1"])
+    setP2(d['Player2'])
     setDisable(false)
     setP1Dis(true)
     setP2Dis(true)
     setI('')
     setInDis(false)
-    data ={
-      player1:player1,
-      player2:player2,
-      winPoint:winPoint,
-      player1Disable:player1Disable,
-      player2Disable:player2Disable,
-      inputDisable:true,
-      winInputPoint:0
-    }
-    //getCache('result_recorder','http://localhost:3000/')
-   //addDataIntoCode('result_recorder','http://localhost:3000/',data)
+    
+    
   }
-  const setWinpoint=()=>{
+  const setWinpoint=async ()=>{
+    const dataToUpdate = await fetchData()
+   dataToUpdate['SetDisable'] = true
+   
+   dataToUpdate['Player1Disable'] = false
+   dataToUpdate['Player2Disable'] = false
+   dataToUpdate['WinInputPoint'] = winInputPoint
+   dataToUpdate['InputDisable'] = true
+   const updatedData = dataToUpdate
+    const res = await fetch(`http://localhost:5000/data/`,{
+      method : 'PUT',
+      headers:{
+        'Content-type':'application/json'
+      },
+      body :JSON.stringify(updatedData)
+    })
+    const d = await res.json()
+    
     if(!winInputPoint){
       alert("Enter the input")
     }
@@ -100,13 +143,13 @@ function App() {
       alert("Enter the valid point to win")
     }
     else {
-      //localStorage.setItem('WP',winPoint)
+      
       setDisable(true)
       setW(winInputPoint)
       setP1Dis(false)
       setP2Dis(false)
       setInDis(true)
-      //setW(winPoint)
+      
     }
   }
   return (
