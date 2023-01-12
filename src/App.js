@@ -6,9 +6,9 @@ import Header from "./Components/Header"
 
 function App() {
   const [player1,setP1] =useState(0)
-  localStorage.setItem("Pl1",0)
+  //localStorage.setItem("Pl1",0)
   const [player2,setP2] = useState(0)
-  localStorage.setItem("Pl2",0)
+  //localStorage.setItem("Pl2",0)
   const [winPoint,setW] = useState(0)
   const [player1Disable,setP1Dis] = useState(true)
   const [player2Disable,setP2Dis] = useState(true)
@@ -89,7 +89,7 @@ function App() {
       winInputPoint:0
     }
     //getCache('result_recorder','http://localhost:3000/')
-    addDataIntoCode('result_recorder','http://localhost:3000/',data)
+   //addDataIntoCode('result_recorder','http://localhost:3000/',data)
   }
   const setWinpoint=()=>{
     if(!winInputPoint){
@@ -111,7 +111,7 @@ function App() {
   }
   return (
     <div className="App">
-    <Header player1= {player1} player2={player2/*localStorage.getItem('Pl2')*/}/>
+    <Header player1= {player1} player2={player2}/>
       
       <label className='label'> Enter the winning score</label>
       <input type = 'number'  value ={winInputPoint}  className="form-control-input"  
