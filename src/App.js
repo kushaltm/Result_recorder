@@ -36,24 +36,20 @@ function App() {
     return data
   }
 
- 
-  
   const handleChange=(e)=>{
       setI(e.target.value)
-     
-    
   }
+
   const onPlayer1= async()=>{
     const dataToUpdate = await fetchData()
     setP1(player1+1)
     dataToUpdate['Player1']++
-     if(player1 == winPoint-1){
+     if(player1 === parseInt(winPoint-1)){
        alert("Player1 wins")
        dataToUpdate['Player1Disable'] = true
        dataToUpdate['Player2Disable'] = true
        setP1Dis(true)
        setP2Dis(true)
-     
      }
      const updatedData = dataToUpdate
      const res = await fetch(`http://localhost:5000/data/`,{
@@ -63,42 +59,42 @@ function App() {
        },
        body :JSON.stringify(updatedData)
      })
-     const d = await res.json()
-    
+     await res.json() 
   }
+
   const onPlayer2=async()=>{
     const dataToUpdate = await fetchData()
-   setP2(player2+1)
-   dataToUpdate['Player2']++
-    if(player2 == winPoint-1){
+    setP2(player2+1)
+    dataToUpdate['Player2']++
+    if(player2 === parseInt(winPoint-1)){
       alert("Player2 wins")
       dataToUpdate['Player1Disable'] = true
       dataToUpdate['Player2Disable'] = true
       setP1Dis(true)
       setP2Dis(true)
-    
     }
+
     const updatedData = dataToUpdate
     const res = await fetch(`http://localhost:5000/data/`,{
-      method : 'PUT',
-      headers:{
-        'Content-type':'application/json'
-      },
-      body :JSON.stringify(updatedData)
-    })
-    const d = await res.json()
-    
-  }
+        method : 'PUT',
+        headers:{
+          'Content-type':'application/json'
+        },
+        body :JSON.stringify(updatedData)
+      })
+      await res.json()
+    }
+
   const onReset=async()=>{
     const dataToUpdate = await fetchData()
-   dataToUpdate['Player1']=0
-   dataToUpdate['Player2']=0
-   dataToUpdate['SetDisable'] = false
-   dataToUpdate['Player1Disable'] = true
-   dataToUpdate['Player2Disable'] = true
-   dataToUpdate['WinInputPoint'] =0
-   dataToUpdate['InputDisable'] = false
-   const updatedData = dataToUpdate
+    dataToUpdate['Player1']=0
+    dataToUpdate['Player2']=0
+    dataToUpdate['SetDisable'] = false
+    dataToUpdate['Player1Disable'] = true
+    dataToUpdate['Player2Disable'] = true
+    dataToUpdate['WinInputPoint'] =0
+    dataToUpdate['InputDisable'] = false
+    const updatedData = dataToUpdate
     const res = await fetch(`http://localhost:5000/data/`,{
       method : 'PUT',
       headers:{
@@ -114,18 +110,16 @@ function App() {
     setP2Dis(true)
     setI('')
     setInDis(false)
-    
-    
   }
+
   const setWinpoint=async ()=>{
     const dataToUpdate = await fetchData()
-   dataToUpdate['SetDisable'] = true
-   
-   dataToUpdate['Player1Disable'] = false
-   dataToUpdate['Player2Disable'] = false
-   dataToUpdate['WinInputPoint'] = winInputPoint
-   dataToUpdate['InputDisable'] = true
-   const updatedData = dataToUpdate
+    dataToUpdate['SetDisable'] = true
+    dataToUpdate['Player1Disable'] = false
+    dataToUpdate['Player2Disable'] = false
+    dataToUpdate['WinInputPoint'] = winInputPoint
+    dataToUpdate['InputDisable'] = true
+    const updatedData = dataToUpdate
     const res = await fetch(`http://localhost:5000/data/`,{
       method : 'PUT',
       headers:{
@@ -133,29 +127,25 @@ function App() {
       },
       body :JSON.stringify(updatedData)
     })
-    const d = await res.json()
-    
+    await res.json()
     if(!winInputPoint){
       alert("Enter the input")
     }
-    
     else if(winInputPoint<=0 ){
       alert("Enter the valid point to win")
     }
     else {
-      
       setDisable(true)
       setW(winInputPoint)
       setP1Dis(false)
       setP2Dis(false)
       setInDis(true)
-      
     }
   }
+
   return (
     <div className="App">
     <Header player1= {player1} player2={player2}/>
-      
       <label className='label'> Enter the winning score</label>
       <input type = 'number'  value ={winInputPoint}  className="form-control-input"  
       onChange={handleChange} disabled={inputDisable}/>
@@ -165,7 +155,6 @@ function App() {
       <button className='player2-btn btn' disabled = {player2Disable} onClick={onPlayer2}>Player2</button>
       <button className='reset-btn' onClick={onReset}>Reset</button>
       </div>
-      
     </div>
   );
 }
