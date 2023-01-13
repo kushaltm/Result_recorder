@@ -1,12 +1,12 @@
 {
   "data": {
-    "Player1": 0,
-    "Player2": 0,
+    "Player1": 3,
+    "Player2": 5,
     "WinPoint": 0,
     "Player1Disable": true,
     "Player2Disable": true,
-    "InputDisable": false,
-    "WinInputPoint": 0,
-    "SetDisable": false
+    "InputDisable": true,
+    "WinInputPoint": "5",
+    "SetDisable": true
   }
 }
