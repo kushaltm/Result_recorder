@@ -192,9 +192,11 @@ function App() {
   return (
     <div className="App">
     <Header player1= {player1} player2={player2}/>
+    <div>
       <label className='label'> Enter the winning score</label>
       <input type = 'number' value = {winInputPoint}   className="form-control-input"   onChange={handleChange} disabled={inputDisable}/>
       <button className='set-btn btn' disabled={set} onClick={setWinpoint} >Set</button>
+      </div>
       <div>
       <button className='player1-btn' disabled = {player1Disable} onClick={onPlayer1}>Player1</button>
       <button className='player2-btn btn' disabled = {player2Disable} onClick={onPlayer2}>Player2</button>
