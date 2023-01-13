@@ -163,8 +163,10 @@ function App() {
       body :JSON.stringify(updatedData)
     })
     await res.json()*/
-    
-    if(winInputPoint<=0 ){
+    if(!winInputPoint){
+      alert("Enter the input")
+    }
+    else if(winInputPoint<=0 ){
       alert("Enter the valid point to win")
     }
     else {
