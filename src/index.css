@@ -43,6 +43,66 @@
   position: relative;
   width: 30%;
 }
+.player1-btn{
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 20px 30px;
+  margin: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+  position: relative;
+  width: 30%;
+}
+.player2-btn{
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 20px 30px;
+  margin: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+  position: relative;
+  width: 30%;
+}
+.player1-btn:disabled{
+display: inline-block;
+background: rgb(221, 47, 47);
+color: #fff;
+border: none;
+padding: 20px 30px;
+margin: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+text-decoration: none;
+font-size: 15px;
+font-family: inherit;
+position: relative;
+width: 30%;
+}
+.player2-btn:disabled{
+  display: inline-block;
+  background: rgb(221, 47, 47);
+  color: #fff;
+  border: none;
+  padding: 20px 30px;
+  margin: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+  position: relative;
+  width: 30%;
+  }
 .form-control-input {
   width: 50%;
   height: 40px;
